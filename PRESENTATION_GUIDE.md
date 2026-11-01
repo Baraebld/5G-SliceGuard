@@ -6,7 +6,7 @@
 ## 📌 Project Overview
 
 **Title**: 5G SliceGuard — Real-Time Intrusion Detection & Automated Response for Virtualized Network Slices  
-**Authors**: Rabahi Mohamed Fouad, Miloudi Ahmed Aboubaker Esseddik  
+**Author**: Belaid El Baraa  
 **Course Topic**: 5G Network Security  
 **Demo**: Fully interactive web-based defense testbed (no server required — just open `index.html`)
 

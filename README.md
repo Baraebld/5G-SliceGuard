@@ -74,8 +74,7 @@ If you wish to test the active backend and see the dashboard populate with live 
 
 ---
 
-## 👥 Project Team
-- **Rabahi Mohamed Fouad**
-- **Miloudi Ahmed Aboubaker Esseddik**
+## 👤 Author
+- **Belaid El Baraa**
 
 **Topic**: 5G Network Security — Intrusion Detection & Response for Virtualized Slices
