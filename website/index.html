@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5G SliceGuard — Intrusion Detection & Response for Virtualized Network Slices</title>
+    <meta name="description" content="Real-time intrusion detection and automated response system for 5G virtualized network slices. Threat simulation, anomaly analysis, and automated quarantine.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ========== NAVBAR ========== -->
+
+<nav class="navbar" id="navbar">
+    <div class="container">
+        <a href="#hero" class="nav-logo">
+            <div class="logo-icon"><i class="fas fa-shield-halved"></i></div>
+            <span>5G SliceGuard</span>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#about">About</a></li>
+            <li><a href="#detection">Defense Pipeline</a></li>
+            <li><a href="#attacks">Threat Landscape</a></li>
+            <li><a href="#comparison">Protocols</a></li>
+            <li><a href="#simulator" class="nav-cta">Live Demo</a></li>
+        </ul>
+        <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="hero" id="hero">
+    <canvas class="hero-bg-canvas" id="heroBgCanvas"></canvas>
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="pulse-dot"></span>
+                5G Defense System
+            </div>
+            <h1>
+                5G SliceGuard<br>
+                <span class="gradient-text">Intrusion Detection</span><br>
+                & Response
+            </h1>
+            <p class="hero-description">
+                A real-time intrusion detection and automated response system for 5G virtualized network slices. 
+                Detect cross-slice threats, analyze anomalies, and trigger automated quarantine — before damage spreads.
+            </p>
+            <div class="hero-actions">
+                <a href="#simulator" class="btn-primary">
+                    <i class="fas fa-shield-halved"></i> Enter Defense Lab
+                </a>
+                <a href="#about" class="btn-outline">
+                    <i class="fas fa-book-open"></i> Learn More
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-slice-preview">
+                <div class="slice-ring"><span class="ring-dot"></span></div>
+                <div class="slice-ring"><span class="ring-dot"></span></div>
+                <div class="slice-ring"><span class="ring-dot"></span></div>
+                <div class="hero-center-badge">5G</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== ABOUT – WHAT IS NETWORK SLICING ========== -->
+<section class="about-section" id="about">
+    <div class="container">
+        <div class="about-header reveal">
+            <span class="section-label">Foundation</span>
+            <h2 class="section-title">5G Network Slicing & Why It Needs Guarding</h2>
+            <p class="section-subtitle">
+                5G network slicing allows operators to create multiple virtual networks (slices) 
+                on a single shared physical infrastructure. Each slice is an <strong>isolated, end-to-end virtual network</strong> 
+                tailored for a specific use case — with its own bandwidth, latency guarantees, and security policies.
+                Think of it as <em>separate lanes on a highway</em>: same road, but each lane has different speed limits and rules.
+            </p>
+        </div>
+
+        <!-- Security Callout -->
+        <div class="glass-card reveal" style="margin-bottom: 40px; border-left: 3px solid var(--accent); padding: 24px 28px;">
+            <h4 style="color: var(--accent); margin-bottom: 8px; font-size: 0.95rem;"><i class="fas fa-lightbulb"></i> Why This Matters for Security</h4>
+            <p style="color: var(--text-secondary); font-size: 0.92rem; line-height: 1.7; margin: 0;">
+                An IoT slice (mMTC) might have thousands of easily-compromised sensors. A medical slice (URLLC) handles 
+                remote surgery with <strong>sub-1ms latency requirements</strong>. <strong style="color: var(--danger);">If an attacker compromises an IoT device and jumps to the URLLC slice, 
+                lives are at risk.</strong> That's why slice isolation — and SliceGuard — is critical.
+            </p>
+        </div>
+
+        <div class="slices-grid">
+            <!-- eMBB Card -->
+            <div class="slice-card embb reveal">
+                <div class="slice-icon"><i class="fas fa-video"></i></div>
+                <span class="slice-tag">eMBB</span>
+                <h3>Enhanced Mobile Broadband</h3>
+                <p>High-bandwidth applications like 4K/8K streaming, virtual reality, and cloud gaming requiring massive throughput.</p>
+                <div class="slice-specs">
+                    <div class="spec-row">
+                        <span class="spec-label">Bandwidth</span>
+                        <span class="spec-value" style="color: var(--embb-color)">20 Gbps</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label">Latency</span>
+                        <span class="spec-value">4 ms</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label">Priority</span>
+                        <span class="spec-value">Medium</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- URLLC Card -->
+            <div class="slice-card urllc reveal">
+                <div class="slice-icon"><i class="fas fa-car"></i></div>
+                <span class="slice-tag">URLLC</span>
+                <h3>Ultra-Reliable Low Latency</h3>
+                <p>Mission-critical applications like autonomous driving, remote surgery, and industrial automation requiring ultra-low latency.</p>
+                <div class="slice-specs">
+                    <div class="spec-row">
+                        <span class="spec-label">Bandwidth</span>
+                        <span class="spec-value">10 Gbps</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label">Latency</span>
+                        <span class="spec-value" style="color: var(--urllc-color)">1 ms</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label">Priority</span>
+                        <span class="spec-value" style="color: var(--urllc-color)">Critical</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- mMTC Card -->
+            <div class="slice-card mmtc reveal">
+                <div class="slice-icon"><i class="fas fa-microchip"></i></div>
+                <span class="slice-tag">mMTC</span>
+                <h3>Massive Machine-Type Comm.</h3>
+                <p>IoT deployments with millions of sensors and devices — smart cities, agriculture monitoring, and environmental tracking.</p>
+                <div class="slice-specs">
+                    <div class="spec-row">
+                        <span class="spec-label">Devices/km²</span>
+                        <span class="spec-value" style="color: var(--mmtc-color)">1M+</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label">Latency</span>
+                        <span class="spec-value">10 ms</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-label">Power</span>
+                        <span class="spec-value" style="color: var(--mmtc-color)">Ultra-Low</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== DETECTION ========== -->
+<section class="pipeline-timeline-section" id="detection" style="background-color: var(--bg-color); padding: 80px 0;">
+    <div class="container">
+        <div class="reveal" style="text-align: center; margin-bottom: 50px;">
+            <span class="section-label">Defense Engine</span>
+            <h2 class="section-title">End-to-End IDS Defense Pipeline</h2>
+            <p class="section-subtitle" style="max-width: 800px; margin: 0 auto;">
+                From the core NFV vulnerability to automated PDU quarantine, this is the complete lifecycle of SliceGuard's dual-model intrusion detection and response architecture.
+            </p>
+        </div>
+
+        <div class="reveal">
+            <div style="display: flex; flex-direction: column; align-items: center; position: relative;">
+                
+                <style>
+                    .pipe-node-v3 { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); padding: 22px 30px; border-radius: 12px; width: 620px; text-align: left; z-index: 2; position: relative; backdrop-filter: blur(10px); }
+                    @media (max-width: 700px) { .pipe-node-v3 { width: 95%; } }
+                    .pipe-node-v3 h4 { margin: 0 0 10px 0; color: #fff; font-size: 17px; font-family: 'JetBrains Mono', monospace; display:flex; align-items:center; gap:12px; }
+                    .pipe-node-v3 p, .pipe-node-v3 ul { margin: 0; color: rgba(255,255,255,0.7); font-size: 13px; line-height: 1.65; }
+                    .pipe-node-v3 ul { margin-top: 8px; padding-left: 18px; }
+                    .pipe-node-v3 ul li { margin-bottom: 4px; }
+                    .pipe-conn-v3 { width: 4px; height: 40px; background: rgba(255,255,255,0.1); position: relative; overflow: hidden; }
+                    .pipe-pulse-v3 { position: absolute; width: 10px; height: 10px; border-radius: 5px; background: var(--accent); left: -3px; animation: dataFlow 1.8s infinite linear; box-shadow: 0 0 12px var(--accent); }
+                    @keyframes dataFlow { 0% { top: -10px; opacity:1;} 90% { top: 50px; opacity:0;} 100% { top: 50px; opacity:0;}}
+                    .highway-mid-container { width: 100%; max-width: 850px; background: rgba(10,12,16,0.6); padding: 25px; border-radius: 16px; border: 1px solid rgba(35, 209, 96, 0.3); text-align: center; margin: 5px 0; box-shadow: 0 0 40px rgba(35, 209, 96, 0.05); }
+                </style>
+
+                <!-- STEP 1 — Core Vulnerability -->
+                <div class="pipe-node-v3" style="border-top: 3px solid #ff3860;">
+                    <h4><i class="fas fa-biohazard" style="color: #ff3860; font-size: 22px;"></i> 1 — The Core Vulnerability</h4>
+                    <p>5G networks use <strong>NFV (Network Function Virtualization)</strong> to run multiple slices on the same physical hardware, managed by a shared Hypervisor. Because slices share CPU, RAM, and NIC resources, <strong>Cross-Slice Attacks</strong> are possible: an attacker flooding the mMTC slice can exhaust the hypervisor's CPU, causing URLLC packet delays that could crash an autonomous vehicle's braking system.</p>
+                </div>
+                <div class="pipe-conn-v3"><div class="pipe-pulse-v3" style="background:#ff3860; box-shadow: 0 0 10px #ff3860; animation-delay: 0.1s;"></div></div>
+
+                <!-- STEP 2 — IDS Positioning / PDU Monitoring -->
+                <div class="pipe-node-v3" style="border-top: 3px solid var(--accent);">
+                    <h4><i class="fas fa-satellite-dish" style="color: var(--accent); font-size: 22px;"></i> 2 — IDS Positioning: Per-PDU Flow Monitoring</h4>
+                    <p>The IDS integrates directly at the <strong>UPF (User Plane Function)</strong> inside the 5G Core. It does not treat a slice as one opaque tunnel. Instead, it performs <strong>Deep Packet Inspection</strong> and <strong>Flow Analysis</strong> on individual connections:</p>
+                    <ul>
+                        <li>Every device communicates via its own <strong>PDU Session</strong> (encapsulated in a GTP-U tunnel).</li>
+                        <li>The UPF tracks each session by the device's <strong>IP address</strong> and <strong>SUPI</strong> (Subscription Permanent Identifier) — the 5G-unique device ID.</li>
+                        <li>This gives the IDS per-device visibility inside a slice containing millions of flows.</li>
+                    </ul>
+                </div>
+                <div class="pipe-conn-v3"><div class="pipe-pulse-v3" style="animation-delay: 0.4s;"></div></div>
+
+                <!-- THE HIGHWAY CANVAS VISUALIZATION (after IDS positioning) -->
+                <div class="highway-mid-container">
+                    <h5 style="color: var(--accent); font-family: 'JetBrains Mono'; font-size: 14px; margin: 0 0 5px 0; display:flex; align-items:center; justify-content:center;"><i class="fas fa-vial" style="margin-right: 8px;"></i> INTERACTIVE VISUALIZATION: PDU SESSIONS INSIDE A SLICE</h5>
+                    <p style="color: rgba(255,255,255,0.5); font-size: 12px; margin: 0 0 15px 0;">Each slice has multiple PDU sub-lanes. Each car is a device flow tracked by its IP / SUPI. Zombies flood specific PDUs — the SMF firewall targets only those lanes.</p>
+                    <div style="display:flex; flex-direction:column; gap:16px;">
+                        <canvas id="highwayCanvas" style="width: 100%; height: 350px; background: #0a0c10; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);"></canvas>
+                        <div class="highway-controls" style="display: flex; gap: 12px; justify-content: center;">
+                            <button class="sim-btn" style="background: rgba(255,255,255,0.05); color:white; flex:1;" onclick="hwySim.setMode('normal')"><i class="fas fa-car-side"></i> Normal Traffic</button>
+                            <button class="sim-btn danger" style="flex:1;" onclick="hwySim.setMode('attack')"><i class="fas fa-biohazard"></i> Inject Zombies</button>
+                            <button class="sim-btn success" style="flex:1;" onclick="hwySim.setMode('quarantine')"><i class="fas fa-shield-halved"></i> SMF Quarantine</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pipe-conn-v3" style="height: 30px;"><div class="pipe-pulse-v3" style="animation-delay: 0.5s;"></div></div>
+
+                <!-- STEP 3 — Feature Engineering -->
+                <div class="pipe-node-v3" style="border-top: 3px solid var(--warning);">
+                    <h4><i class="fas fa-filter" style="color: var(--warning); font-size: 22px;"></i> 3 — Feature Engineering (What the ML "Sees")</h4>
+                    <p>Unlike a basic firewall that only checks ports and IPs, the ML engine continuously extracts statistical "vital signs" grouped into four categories:</p>
+                    <ul>
+                        <li><strong style="color:#00b4d8;">Volumetric:</strong> Total bandwidth (Mbps) and packet rate (pps) — spots brute-force floods.</li>
+                        <li><strong style="color:#ff006e;">Infrastructure:</strong> CPU and Memory usage of the VNF virtual machines — detects resource starvation.</li>
+                        <li><strong style="color:#7b61ff;">QoS Degradation:</strong> Latency, Drop Rate, and <em>Jitter</em> — jitter is the #1 indicator of stealthy side-channel attacks.</li>
+                        <li><strong style="color:#39ff14;">Temporal & Cross-Slice:</strong> Over a 10-second rolling window, the engine calculates the <em>standard deviation</em>, <em>deltas</em>, and the <strong>cross-slice correlation score</strong>. If mMTC CPU spikes exactly when URLLC latency degrades, this mathematically proves a hypervisor-level attack rather than a normal traffic surge.</li>
+                    </ul>
+                </div>
+                <div class="pipe-conn-v3"><div class="pipe-pulse-v3" style="background:var(--warning); box-shadow: 0 0 10px var(--warning); animation-delay: 0.7s;"></div></div>
+
+                <!-- STEP 4 — Dual Model ML -->
+                <div class="pipe-node-v3" style="border-top: 3px solid #00b4d8;">
+                    <h4><i class="fas fa-brain" style="color: #00b4d8; font-size: 22px;"></i> 4 — Dual-Model ML Detection</h4>
+                    <p>The extracted features are fed simultaneously into two complementary models:</p>
+                    <ul>
+                        <li><strong>XGBoost (Supervised):</strong> Trained on labelled datasets of known attack signatures (Resource Theft, Data Injection). Acts as an ultra-fast classifier recognizing complex non-linear patterns with high confidence.</li>
+                        <li><strong>Isolation Forest (Unsupervised):</strong> The safety net for <em>Zero-Day</em> attacks. It doesn't look for specific signatures — it mathematically isolates any behavior that deviates from baseline. If a brand-new exploit appears, the anomaly score instantly spikes.</li>
+                    </ul>
+                    <p style="margin-top:8px;">When combined confidence exceeds <strong>65%</strong>, the system triggers automated quarantine.</p>
+                </div>
+                <div class="pipe-conn-v3"><div class="pipe-pulse-v3" style="background:#00b4d8; box-shadow: 0 0 10px #00b4d8; animation-delay: 1.0s;"></div></div>
+
+                <!-- STEP 5 — Automated Quarantine -->
+                <div class="pipe-node-v3" style="border-top: 3px solid #23d160;">
+                    <h4><i class="fas fa-code" style="color: #23d160; font-size: 22px;"></i> 5 — Automated Quarantine via REST API</h4>
+                    <p>Human reaction time is too slow for URLLC. The IDS autonomously executes a <strong>surgical quarantine</strong>:</p>
+                    <ul>
+                        <li><strong>The Scalpel (Session Termination):</strong> The IDS pinpoints the specific rogue SUPI/IP identifiers. It sends an HTTP POST via the <strong>5G SBA</strong> to the <strong>SMF (Session Management Function)</strong>. The SMF forcefully terminates the misbehaving <strong>PDU sessions</strong> — not the physical devices.</li>
+                        <li><strong>Why PDU Termination?</strong> Dropping an entire session is instantaneous and highly secure. While any legitimate "clean" background packets mixed in that specific session are also dropped (a harsh but necessary measure), avoiding slow packet-by-packet filtering is the only way to save the critical URLLC slice from crashing during a massive flood.</li>
+                        <li><strong>Zero Slice Interruption:</strong> The malicious sessions are terminated instantly, but the other 9,900 legitimate devices in the exact same slice experience zero interruption because they have their own independent PDU sessions.</li>
+                    </ul>
+                </div>
+
+                <div class="pipe-conn-v3" style="height: 30px;"><div class="pipe-pulse-v3" style="background:#23d160; box-shadow: 0 0 10px #23d160; animation-delay: 1.3s;"></div></div>
+
+                <!-- STEP 6 — Restoration -->
+                <div class="pipe-node-v3" style="border-bottom: 3px solid var(--text-primary); margin-bottom: 20px;">
+                    <h4><i class="fas fa-heart-pulse" style="color: var(--text-primary); font-size: 22px;"></i> 6 — System Restoration</h4>
+                    <p>Because the malicious PDU sessions are dropped at the SMF level, the flood physically stops entering the core. The hypervisor CPU buffers drain, and the URLLC slice is instantly restored to <strong>sub-1ms latency</strong>.</p>
+                    <p style="margin-top: 5px;"><strong>What happens to the terminated sessions?</strong> The devices are now disconnected from the data plane. The network operator can choose to permanently blacklist the device's SUPI, or place it in a remediation pool to be scanned. Once verified clean, the device is allowed to re-attach and establish a brand new, clean PDU session.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== VIRTUALIZATION ARCHITECTURE ========== -->
+<section class="architecture-section" id="architecture" style="padding: 80px 0;">
+    <div class="container">
+        <div class="reveal" style="text-align: center; margin-bottom: 50px;">
+            <span class="section-label">Under the Hood</span>
+            <h2 class="section-title">Hardware to Software: How Slicing Works</h2>
+            <p class="section-subtitle" style="max-width: 800px; margin: 0 auto;">
+                Understanding the architecture of virtualization layers is critical to understanding why 5G is vulnerable to cross-slice attacks. Isolation is logical, not physical.
+            </p>
+        </div>
+
+        <div class="reveal" style="display: flex; flex-direction: column; gap: 50px;">
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
+                <div class="glass-card" style="flex: 1 1 400px; padding: 20px; text-align: center; background: rgba(0,0,0,0.3);">
+                    <img src="assets/nvf-re-01-179029d41d8cd98f00b204e9800998ecf8427e.svg" alt="Traditional vs Virtualized Network" style="width: 100%; max-height: 350px; border-radius: 8px; cursor: zoom-in; transition: transform 0.2s;" onclick="openFullscreen(this)" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'" title="Click to enlarge">
+                </div>
+                <div style="flex: 1 1 400px;">
+                    <h3 style="color: white; margin-bottom: 15px;"><i class="fas fa-server" style="color: var(--accent); margin-right: 10px;"></i> Network Function Virtualization (NFV)</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 15px;">
+                        Historically, telecom networks relied on dedicated, purpose-built physical hardware for every individual function. 5G fundamentally shifts this paradigm by utilizing <strong>NFV</strong>.
+                    </p>
+                    <p style="color: var(--text-secondary); line-height: 1.6;">
+                        Instead of specialized hardware, 5G uses standard commercial off-the-shelf (COTS) servers. A hypervisor creates a virtualization layer, decoupling the software from the hardware. Network functions (like firewalls, UPFs, or routers) now run entirely as software Virtual Machines (VNFs) or Containers (CNFs) sharing the same underlying CPU, storage, and memory pool.
+                    </p>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 40px; align-items: center; flex-direction: row-reverse;">
+                <div class="glass-card" style="flex: 1 1 400px; padding: 20px; text-align: center; background: rgba(0,0,0,0.3);">
+                    <img src="assets/nvf-re-02-179030d41d8cd98f00b204e9800998ecf8427e.svg" alt="5G Network Slicing Architecture" style="width: 100%; max-height: 350px; border-radius: 8px; cursor: zoom-in; transition: transform 0.2s;" onclick="openFullscreen(this)" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'" title="Click to enlarge">
+                </div>
+                <div style="flex: 1 1 400px;">
+                    <h3 style="color: white; margin-bottom: 15px;"><i class="fas fa-layer-group" style="color: var(--danger); margin-right: 10px;"></i> The Shared Risk Surface</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 15px;">
+                        This software-driven approach is what enables <strong>Network Slicing</strong>. The network orchestrator weaves these virtual functions together to create independent logical slices (e.g., eMBB, URLLC, mMTC) that operate simultaneously on the same hardware.
+                    </p>
+                    <div style="border-left: 3px solid var(--danger); padding-left: 15px; margin-top: 15px;">
+                        <p style="color: var(--text-secondary); line-height: 1.6; margin: 0;">
+                            <strong>The Vulnerability:</strong> While these slices are strictly isolated in software via routing rules and virtual firewalls, they physically share the exact same hypervisor, CPU caches, memory buses, and NICs. This means an attacker who overwhelms or exploits the hardware from a low-security slice can bypass software isolation entirely, directly impacting mission-critical slices through resource contention and hardware side-channels.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ========== ATTACK EXPLANATION ========== -->
+<section class="attack-section" id="attacks">
+    <div class="container">
+        <div class="reveal" style="display: flex; flex-wrap: wrap; gap: 30px; margin-bottom: 40px; align-items: stretch;">
+            <div style="flex: 1 1 500px;">
+                <span class="section-label">Threat Landscape</span>
+                <h2 class="section-title" style="text-align: left;">Threats SliceGuard Defends Against</h2>
+                <p class="section-subtitle" style="text-align: left; margin: 0;">
+                    SliceGuard is built to detect and neutralize threats that exploit shared physical infrastructure 
+                    to breach the isolation boundaries between virtualized network slices.
+                </p>
+            </div>
+            <div class="glass-card" style="flex: 1 1 350px; border-left: 4px solid var(--danger); padding: 20px;">
+                <h4 style="color: white; margin-bottom: 10px; font-size: 0.95rem;">
+                    <i class="fas fa-microchip" style="color: var(--danger); margin-right: 8px;"></i> Real-World Context: Meltdown & Spectre
+                </h4>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; margin-bottom: 10px;">
+                    Discovered in 2017, <strong>Meltdown</strong> and <strong>Spectre</strong> are prime examples of hardware-based side-channel attacks. They exploit modern CPU performance features—speculative execution and branch prediction—to bypass hardware security boundaries.
+                </p>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; margin: 0;">
+                    By forcing the CPU to mistakenly access secure data and observing the <em>cache side-channel</em> timing, attackers can leak sensitive information. These fundamental flaws highlight why strict resource limitation and zero-trust policies are essential in shared 5G/6G environments.
+                </p>
+            </div>
+        </div>
+
+        <div class="slices-grid" style="margin-top: 40px;">
+            <!-- Attack 1 -->
+            <div class="slice-card reveal" style="border-top: 3px solid var(--danger);">
+                <div class="slice-icon"><i class="fas fa-battery-empty" style="color: var(--danger);"></i></div>
+                <h3 style="margin-top: 15px;">Resource Exhaustion & Theft</h3>
+                <p style="margin-top: 10px;">Overwhelming shared resources to cause service failures. Attackers exploit weak slices (e.g., IoT) to consume shared hypervisor CPU/RAM, stealing resources and starving critical URLLC slices.</p>
+            </div>
+            <!-- Attack 2 -->
+            <div class="slice-card reveal" style="border-top: 3px solid var(--warning);">
+                <div class="slice-icon"><i class="fas fa-eye" style="color: var(--warning);"></i></div>
+                <h3 style="margin-top: 15px;">Side-Channel Attacks</h3>
+                <p style="margin-top: 10px;">Observing contention on shared resources, such as the ring interconnect in processor chips, to infer secure data and break cross-slice isolation boundaries stealthily.</p>
+            </div>
+            <!-- Attack 3 -->
+            <div class="slice-card reveal" style="border-top: 3px solid var(--accent);">
+                <div class="slice-icon"><i class="fas fa-user-secret" style="color: var(--accent);"></i></div>
+                <h3 style="margin-top: 15px;">Identity Deception</h3>
+                <p style="margin-top: 10px;">Exploiting authentication gaps and weak protocols to steal traffic, impersonate legitimate network functions, and gain unauthorized access to slice resources.</p>
+            </div>
+        </div>
+        <div class="reveal" style="text-align: left; margin-top: 40px; padding: 20px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+            <h4 style="color: var(--text-primary); font-size: 0.9rem; margin-bottom: 8px;"><i class="fas fa-file-pdf" style="color: #ff3860; margin-right: 8px;"></i> Findings from <em>Cross_Network_Slice_Disruptions_5G.pdf</em></h4>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6; margin: 0; font-style: italic;">
+                "As network slicing is the chief enabler for future Beyond 5G (B5G) and 6G networks, multiple tenants interoperate on a common physical infrastructure. However, this opens the doors to cross-slice disruptions via Man-in-the-Middle (MITM) attacks... This paper addresses cross-network slice disruptions in a zero-trust and multi-tenant based 5G network by proposing two complementary design techniques: secure communication mechanisms (such as Attribute-Based Encryption) and Artificial Intelligence (AI)-based anomaly detection to enforce strict isolation."
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ========== DEFENSE MECHANISMS ========== -->
+<section class="comparison-section" id="comparison">
+    <div class="container">
+        <div class="reveal">
+            <span class="section-label">Countermeasures</span>
+            <h2 class="section-title">Defense Mechanisms & Architecture</h2>
+            <p class="section-subtitle">
+                To combat cross-slice attacks, SliceGuard employs a hybrid framework combining static resource limitation, AI-driven detection across network planes, and zero-trust principles.
+            </p>
+        </div>
+
+        <div class="reveal" style="display: flex; flex-direction: column; gap: 40px; margin-top: 40px;">
+            
+            <!-- Resource Limitation -->
+            <div class="glass-card" style="border-left: 4px solid var(--urllc-color); padding: 30px;">
+                <h3 style="color: white; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-server" style="color: var(--urllc-color);"></i> Static Resource Limitation
+                </h3>
+                <p style="color: var(--text-secondary); line-height: 1.6; margin: 0;">
+                    Against <strong>Resource Theft</strong> and <strong>Side-Channel</strong> attacks, SliceGuard enforces strict <strong>Resource Limitation</strong>. By assigning a static hardware limit (e.g., dedicated CPU cores and RAM) to each slice, we physically prevent exhaustion. Even if an attacker floods an mMTC slice, they cannot consume resources beyond their hard-capped limit, ensuring critical URLLC slices remain completely unaffected.
+                </p>
+            </div>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center;">
+                <!-- AI Image -->
+                <div class="glass-card" style="flex: 1 1 400px; padding: 15px; text-align: center; background: rgba(0,0,0,0.3);">
+                    <img src="assets/sensors-25-03335-g005.png" alt="AI Defense Architecture" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); cursor: zoom-in; transition: transform 0.2s;" onclick="openFullscreen(this)" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'" title="Click to enlarge">
+                    <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 15px; text-align: center; margin-bottom: 0;">AI-Driven Threat Detection across Network Planes</p>
+                </div>
+                
+                <!-- AI Text -->
+                <div style="flex: 1 1 400px; display: flex; flex-direction: column; gap: 20px;">
+                    <div class="glass-card" style="border-left: 4px solid #00b4d8; padding: 20px;">
+                        <h4 style="color: white; margin-bottom: 10px;"><i class="fas fa-search" style="color: #00b4d8; margin-right: 8px;"></i> Data Plane (DPI)</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0; line-height: 1.5;">AI inspects actual data payloads in real-time using Deep Packet Inspection to spot malicious signatures and anomalies at the flow level.</p>
+                    </div>
+                    <div class="glass-card" style="border-left: 4px solid #7b61ff; padding: 20px;">
+                        <h4 style="color: white; margin-bottom: 10px;"><i class="fas fa-network-wired" style="color: #7b61ff; margin-right: 8px;"></i> Control Plane (SDN + AI)</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0; line-height: 1.5;">The SDN controller monitors traffic routing. If suspicious patterns move between slices, it dynamically rewrites OpenFlow rules to block malicious packets.</p>
+                    </div>
+                    <div class="glass-card" style="border-left: 4px solid #23d160; padding: 20px;">
+                        <h4 style="color: white; margin-bottom: 10px;"><i class="fas fa-cube" style="color: #23d160; margin-right: 8px;"></i> Management Plane (NFV)</h4>
+                        <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0; line-height: 1.5;">Utilizes Network Function Virtualization to instantly deploy virtual firewalls or IDS exactly where a slice is under attack.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Defenses -->
+            <div style="display: flex; flex-wrap: wrap; gap: 30px;">
+                <div class="glass-card" style="flex: 1 1 300px; border-top: 3px solid var(--accent); padding: 20px;">
+                    <h4 style="color: white; margin-bottom: 10px;"><i class="fas fa-shield-virus" style="color: var(--accent); margin-right: 8px;"></i> Zero-Trust Architecture</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0; line-height: 1.5;">Implementing strict verification for all inter-slice communication. No implicit trust is granted based on network location.</p>
+                </div>
+                <div class="glass-card" style="flex: 1 1 300px; border-top: 3px solid var(--warning); padding: 20px;">
+                    <h4 style="color: white; margin-bottom: 10px;"><i class="fas fa-link" style="color: var(--warning); margin-right: 8px;"></i> Blockchain Authentication</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0; line-height: 1.5;">Securing authentication across different network slices and operators using decentralized ledger technology.</p>
+                </div>
+            </div>
+            
+            <div class="reveal" style="text-align: left; margin-top: 40px; padding: 20px; background: rgba(255,255,255,0.02); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                <h4 style="color: var(--text-primary); font-size: 0.9rem; margin-bottom: 8px;"><i class="fas fa-file-alt" style="color: #00b4d8; margin-right: 8px;"></i> Findings from <em>Cross_Layer_Security_5G_6G_Analysis.md</em></h4>
+                <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6; margin: 0; font-style: italic;">
+                    "By fusing Artificial Intelligence (AI), Software-Defined Networking (SDN), and Network Function Virtualization (NFV), the framework eliminates the 'siloed' approach of traditional cybersecurity. It provides a holistic, autonomous, and context-aware defense mechanism capable of surgically removing malicious traffic at the flow level before it can destabilize the broader network. The research establishes a highly scalable, intelligent architecture... providing a blueprint for networks that can inherently defend themselves against the complex reality of cross-slice resource exploitation."
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== SIMULATOR ========== -->
+<section class="simulator-section" id="simulator">
+    <div class="container">
+        <div class="simulator-header reveal">
+            <span class="section-label">Defense Lab</span>
+            <h2 class="section-title">Threat Simulation & Response Testbed</h2>
+            <p class="section-subtitle" style="margin: 0 auto;">
+                Observe network slices under normal operation, inject controlled threats to stress-test 
+                isolation boundaries, and validate the IDS engine's detection and automated response capabilities.
+            </p>
+        </div>
+
+        <div class="simulator-wrapper">
+            <!-- Canvas Area -->
+            <div class="sim-canvas-container" id="simCanvasContainer">
+                <div class="sim-status-bar">
+                    <div class="sim-status-badge idle" id="simStatusBadge">
+                        <i class="fas fa-circle"></i> <span>IDLE</span>
+                    </div>
+                    <div class="sim-timer" id="simTimer">00:00</div>
+                </div>
+                <canvas id="simCanvas"></canvas>
+            </div>
+
+            <!-- Control Panel -->
+            <div class="sim-controls">
+                <!-- Playback -->
+                <div class="control-card">
+                    <h4><i class="fas fa-gamepad"></i> Controls</h4>
+                    <div class="control-btns">
+                        <button class="sim-btn" id="btnStart" onclick="simulator.start()">
+                            <i class="fas fa-play"></i> Start
+                        </button>
+                        <button class="sim-btn" id="btnStop" onclick="simulator.stop()" disabled>
+                            <i class="fas fa-pause"></i> Stop
+                        </button>
+                        <button class="sim-btn" id="btnReset" onclick="simulator.reset()">
+                            <i class="fas fa-rotate-right"></i> Reset
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Attack Options -->
+                <div class="control-card">
+                    <h4><i class="fas fa-flask"></i> Threat Injection</h4>
+                    <div class="attack-types" id="attackTypes">
+                        <label class="attack-option selected">
+                            <input type="radio" name="attackType" value="resource_theft" checked>
+                            <div>
+                                <span class="attack-name">Resource Theft</span>
+                                <span class="attack-desc">Steal bandwidth from adjacent slices</span>
+                            </div>
+                        </label>
+                        <label class="attack-option">
+                            <input type="radio" name="attackType" value="data_injection">
+                            <div>
+                                <span class="attack-name">Data Injection</span>
+                                <span class="attack-desc">Inject packets across slice boundary</span>
+                            </div>
+                        </label>
+                        <label class="attack-option">
+                            <input type="radio" name="attackType" value="side_channel">
+                            <div>
+                                <span class="attack-name">Side-Channel</span>
+                                <span class="attack-desc">Infer data via shared resources</span>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="control-btns" style="margin-top: 12px;">
+                        <button class="sim-btn danger" id="btnAttack" onclick="simulator.launchAttack()" disabled>
+                            <i class="fas fa-flask"></i> Inject Threat
+                        </button>
+                        <button class="sim-btn success" id="btnDetect" onclick="simulator.runDetection()" disabled>
+                            <i class="fas fa-shield-halved"></i> Engage IDS
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Live Metrics -->
+                <div class="control-card">
+                    <h4><i class="fas fa-chart-bar"></i> Slice Metrics</h4>
+                    <div class="slice-metrics" id="sliceMetrics">
+                        <div class="metric-row">
+                            <span class="metric-label"><span class="metric-dot" style="background:var(--embb-color)"></span> eMBB</span>
+                            <span class="metric-value" id="metricEmbb" style="color:var(--embb-color)">— Mbps</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label"><span class="metric-dot" style="background:var(--urllc-color)"></span> URLLC</span>
+                            <span class="metric-value" id="metricUrllc" style="color:var(--urllc-color)">— ms</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label"><span class="metric-dot" style="background:var(--mmtc-color)"></span> mMTC</span>
+                            <span class="metric-value" id="metricMmtc" style="color:var(--mmtc-color)">— dev</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="metric-label"><span class="metric-dot" style="background:var(--danger)"></span> Anomaly</span>
+                            <span class="metric-value" id="metricAnomaly" style="color:var(--danger)">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alert Log -->
+                <div class="control-card" style="flex:1; min-height:120px;">
+                    <h4><i class="fas fa-bell"></i> Alert Log</h4>
+                    <div class="alert-log" id="alertLog">
+                        <div class="alert-entry" style="color: var(--text-muted); border-color: var(--border-glass); background: transparent;">
+                            <i class="fas fa-info-circle"></i> Waiting for simulation...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NARRATION PANEL -->
+        <div class="narration-panel glass-card" id="narrationPanel" style="margin-top: 24px; margin-bottom: 24px; padding: 20px 28px; border-left: 3px solid var(--accent);">
+            <div style="display: flex; align-items: flex-start; gap: 14px;">
+                <div style="min-width: 40px; height: 40px; border-radius: 10px; background: rgba(123,97,255,0.15); display:flex; align-items:center; justify-content:center;">
+                    <i class="fas fa-comment-dots" style="color: var(--accent); font-size: 1.1rem;" id="narrationIcon"></i>
+                </div>
+                <div style="flex:1;">
+                    <h4 style="font-size: 0.82rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px;" id="narrationTitle">What's Happening</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7; margin: 0;" id="narrationText">
+                        Press <strong>Start</strong> to activate SliceGuard's monitoring system. The canvas shows 3 isolated network slices running on shared infrastructure: 
+                        <strong style="color: var(--embb-color);">eMBB</strong> (streaming — blue packets), 
+                        <strong style="color: var(--urllc-color);">URLLC</strong> (critical systems — red packets), and 
+                        <strong style="color: var(--mmtc-color);">mMTC</strong> (IoT sensors — green packets). 
+                        Each lane represents a virtual slice with its own guaranteed QoS.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts-row">
+            <div class="chart-card">
+                <h5><i class="fas fa-wave-square"></i> Throughput</h5>
+                <canvas id="chartThroughput"></canvas>
+            </div>
+            <div class="chart-card">
+                <h5><i class="fas fa-clock"></i> Latency</h5>
+                <canvas id="chartLatency"></canvas>
+            </div>
+            <div class="chart-card">
+                <h5><i class="fas fa-triangle-exclamation"></i> Threat Level</h5>
+                <canvas id="chartAnomaly"></canvas>
+            </div>
+            <div class="chart-card">
+                <h5><i class="fas fa-chart-pie"></i> Traffic Distribution</h5>
+                <canvas id="chartDistribution"></canvas>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== TEAM ========== -->
+<section class="team-section" id="team">
+    <div class="container">
+        <div class="reveal" style="text-align:center;">
+            <span class="section-label">Project Team</span>
+            <h2 class="section-title">Developed By</h2>
+        </div>
+        <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 2rem;">
+            <div class="team-card reveal" style="margin: 0;">
+                <div class="team-avatar">RM</div>
+                <h3>Rabahi Mohamed Fouad</h3>
+            </div>
+            <div class="team-card reveal" style="margin: 0;">
+                <div class="team-avatar">MA</div>
+                <h3>Miloudi Ahmed Aboubaker Esseddik</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+    <div class="container">
+        <p>&copy; 2026 5G SliceGuard — Intrusion Detection for Virtualized Network Slices</p>
+        <div class="footer-links">
+            <a href="#about">About</a>
+            <a href="#simulator">Simulator</a>
+            <a href="#attacks">Attacks</a>
+            <a href="#detection">Detection</a>
+        </div>
+    </div>
+</footer>
+
+<script src="js/app.js"></script>
+<script src="js/highway.js"></script>
+<!-- Fullscreen Image Modal -->
+<div id="imageModal" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); backdrop-filter: blur(5px); cursor: zoom-out;" onclick="closeFullscreen()">
+    <span style="position: absolute; top: 20px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; transition: color 0.2s;" onmouseover="this.style.color='#bbb'" onmouseout="this.style.color='#f1f1f1'">&times;</span>
+    <img id="modalImage" style="margin: auto; display: block; max-width: 95%; max-height: 95%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 8px; box-shadow: 0 0 40px rgba(0,0,0,0.8);">
+</div>
+<script>
+    function openFullscreen(imgElement) {
+        document.getElementById('imageModal').style.display = 'block';
+        document.getElementById('modalImage').src = imgElement.src;
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+    function closeFullscreen() {
+        document.getElementById('imageModal').style.display = 'none';
+        document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+    // Close on Escape key
+    document.addEventListener('keydown', function(event){
+        if(event.key === "Escape") closeFullscreen();
+    });
+</script>
+</body>
+</html>
