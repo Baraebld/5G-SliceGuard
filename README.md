@@ -1,6 +1,6 @@
 # 5G SliceGuard 🛡️ — Intrusion Detection & Automated Response for Virtualized Network Slices
 
-[![Live Presentation](https://img.shields.io/badge/View-Live_Presentation-blue?style=for-the-badge)](https://fouad3966.github.io/5G-SliceGuard/)
+[![Live Presentation](https://img.shields.io/badge/View-Live_Presentation-blue?style=for-the-badge)](https://baraebld.github.io/5G-SliceGuard/)
 
 > 💡 **Note for Reviewers/Checkers**: If you are reviewing this repository, you can explore the complete presentation and interactive dashboard by clicking the link above, or simply by opening `website/index.html` locally in your browser.
 
@@ -16,7 +16,7 @@ By combining an interactive frontend with an AI-driven backend, this project vis
 
 This project features a fully designed web presentation detailing the history, mechanics, and mitigation strategies of 5G network attacks.
 
-- **Site Presentation Link**: [**View Project Presentation Here**](https://fouad3966.github.io/5G-SliceGuard/)
+- **Site Presentation Link**: [**View Project Presentation Here**](https://baraebld.github.io/5G-SliceGuard/)
 - **Local Access**: No server required for the basic presentation. Just open the [`website/index.html`](website/index.html) file locally in any web browser.
 
 ## ⚙️ What Was Done (Key Features)
