@@ -64,12 +64,18 @@ If you wish to test the active backend and see the dashboard populate with live 
 
 ## 📁 Repository Structure
 
-- 📂 **[`website/`](website/)**: The main site presentation and interactive dashboard frontend (`HTML/CSS/JS`).
-- 📂 **[`realistic simulation/simulation/`](realistic simulation/simulation/)**: The Python, Flask, and ML backend simulation engine.
+- 📂 **[`website/`](website/)**: The main site presentation (`index.html`) and live interactive cyberpunk SOC dashboard (`dashboard/`).
+- 📂 **[`realistic simulation/simulation/`](realistic%20simulation/simulation/)**: Real ML-driven backend engine, Flask REST API, traffic generation, and automated quarantine logic.
+- 📂 **[`simulation/`](simulation/)**: Standalone multi-terminal CLI simulation demonstrating cross-slice contention in real time (`README_SIMULATION.md`).
+- 📂 **[`related research papers/`](related%20research%20papers/)**: Foundational academic papers covering 5G cross-slice threats, datasets, and cross-layer security.
+- 📂 **[`scripts/`](scripts/)**: Maintenance and website generation scripts.
 - 📄 **[`5G_IDS_Conceptual_Architecture.md`](5G_IDS_Conceptual_Architecture.md)**: Theoretical paper discussing the cross-slice threat landscape and feature engineering logic.
 - 📄 **[`PRESENTATION_GUIDE.md`](PRESENTATION_GUIDE.md)**: A complete guide and speaking points for explaining this tool.
 
 ---
 
-**Author**: Mohamed Fouad Rabahi  
-**Topic**: 5G Network Security
+## 👥 Project Team
+- **Rabahi Mohamed Fouad**
+- **Miloudi Ahmed Aboubaker Esseddik**
+
+**Topic**: 5G Network Security — Intrusion Detection & Response for Virtualized Slices
